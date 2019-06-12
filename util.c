@@ -94,7 +94,7 @@ TreeNode *conect(int n,TreeNode *child[]){
 }
 
 
-TreeNode * newStmtNode(StmtKind kind)
+TreeNode* newStmtNode(StmtKind kind)
 {
 	TreeNode *t = (TreeNode*)talloc(sizeof(TreeNode));
 	int i;
@@ -111,7 +111,7 @@ TreeNode * newStmtNode(StmtKind kind)
 	return t;
 }
 
-TreeNode * newExpNode(ExpType kind)
+TreeNode* newExpNode(ExpType kind)
 {
 	TreeNode *t = (TreeNode*)talloc(sizeof(TreeNode));
 	int i;
@@ -128,7 +128,7 @@ TreeNode * newExpNode(ExpType kind)
 	return t;
 }
 
-TreeNode * newFunctNode(void)
+TreeNode* newFunctNode(void)
 {
 	TreeNode *t = (TreeNode*)talloc(sizeof(TreeNode));
 	int i;
@@ -144,7 +144,7 @@ TreeNode * newFunctNode(void)
 	return t;
 }
 
-TreeNode * newProcNode(void)
+TreeNode* newProcNode(void)
 {
 	TreeNode *t = (TreeNode*)talloc(sizeof(TreeNode));
 	int i;
@@ -160,7 +160,7 @@ TreeNode * newProcNode(void)
 	return t;
 }
 
-TreeNode * newDefNode(DefType kind)
+TreeNode* newDefNode(DefType kind)
 {
 	TreeNode *t = (TreeNode*)talloc(sizeof(TreeNode));
 	int i;
@@ -177,7 +177,7 @@ TreeNode * newDefNode(DefType kind)
 	return t;
 }
 
-TreeNode * newProgNode(void)
+TreeNode* newProgNode(void)
 {
 	TreeNode *t = (TreeNode*)talloc(sizeof(TreeNode));
 	int i;
@@ -193,3 +193,15 @@ TreeNode * newProgNode(void)
 	return t;
 }
 
+char* copyString(char *s)
+{
+	int n;
+	char *t;
+	if(s == NULL) return NULL;
+	n = strlen(s) + 1;
+	t = talloc(n);
+	if(t == NULL)
+		fprintf(listing, "Out of memory error at line %d\n", lineno);
+	else strcpy(t,s);
+	return t;
+}
