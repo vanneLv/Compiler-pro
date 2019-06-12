@@ -84,10 +84,10 @@ tokenval val;
 /*************Syntax tree for parsing**********/
 /**********************************************/
 //for type checking
-typedef enum {StmtK,ExpK,FunctK,ProcK,DefK,ProgramK} NodeKind;
+typedef enum {StmtK,ExpK,FunctK,ProcK,Defination,ProgramK} NodeKind;
 typedef enum {AssignK,ProcK,CompoundK,IfK,RepeatK,WhileK,ForK,CaseK,GotoK} StmtKind;
 //TYPE means custom type
-typedef enum {VOID,TYPE, INT,REAL,CHAR,BOOLEAN} ExpType;
+typedef enum {VOID,TYPE, INT,REAL,CHAR,BOOLEAN,ID,SYS} ExpType;
 typedef enum {LABEL,CONST,TYPE,VAR} DefType;
 
 #define MAXCHILDREN 6
@@ -104,7 +104,7 @@ typedef struct treeNode{
 	}kind;
 	//Unterminal or terminal symbol
 	union {
-		char name[MAXIDLEN+1];
+		char *name;
 		TokenType op; 
 		bool boolean;
 		int intNum;

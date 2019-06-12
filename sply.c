@@ -33,47 +33,59 @@
 
 %%
 
-program			: program_head routine DOT			{  
+program			: program_head routine DOT			{ 
+													  savedTree=newProgNode();
+													  savedTree->child[0]=$1;
+													  savedTree->child[1]=$2;
 													}
 				;
-program_head	: PROGRAM ID						{strcpy(savedName,TokenString);} 
-				  SEMI								{ YYPARSER t = talloc();
-				  									  if(t==NULL){
-												      	fprintf(list,"Out of memory error at line %d\n",lineno);
-													  } 
-													  strcpy(t->attr.name,id);
-													  t->nodeKind=Structure;
-													  strcpy(t->SyntaxString,"program_head");
-													  $$=t;
+program_head	: PROGRAM ID						{ $$=newExpNode(ID);
+													  $$->attr.name=copyString(TokenString);
+													} 
+				  SEMI								
+				;
+routine			: routine_head routine_body			{ 
+														TreeNode *t=$1;
+														if(t==NULL)$$=$2;
+														else{
+															while(t->sibling!=NULL)t=t->sibling;
+															t->sibling=$2;
+															$$=$1;
+														}
 													}
 				;
-routine			: routine_head routine_body			{ YYPARSER t;
-													  child[0]=$1;
-													  child[1]=$2;
-													  t = connect(2,child);
-													  t->nodeKind=Structure;
-													  strcpy(t->SyntaxString,"routine");
-													  $$=t;
-													}
-				;
-sub_routine		: routine_head routine_body			{ YYPARSER t;
-													  child[0]=$1;
-													  child[1]=$2;
-													  t = connect(2,child);
-													  t->nodeKind=Structure;
-													  strcpy(t->SyntaxString,"sub_routine");
-													  $$=t;
+sub_routine		: routine_head routine_body			{ 
+														TreeNode *t=$1;
+														if(t==NULL)$$=$2;
+														else{
+															while(t->sibling!=NULL)t=t->sibling;
+															t->sibling=$2;
+															$$=$1;
+														}
 													}
 				;
 
 routine_head	: label_part const_part type_part var_part routine_part
-													{ YYPARSER t;
-													  child[0]=$1;
-													  child[1]=$2;
-													  t = connect(2,child);
-													  t->nodeKind=Structure;
-													  strcpy(t->SyntaxString,"sub_routine");
-													  $$=t;
+													{ 
+														TreeNode *t[5],p;
+														t[0]=$1;
+														t[1]=$2;
+														t[2]=$3;
+														t[3]=$4;
+														t[4]=$5;
+												
+														i=0;
+														while(t[i]==NULL)i++;
+														$$=t[i];
+														p=t[i];
+														for(int j=i;j<4;j++){
+															while(t[j]->sibling!=NULL)p=p->sibling;
+														}
+														
+														p->sibling=t[i+1];
+														while(p->sibling!=NULL)p=p->sibling;
+														p->sibling=t[i+2];
+														}
 													}	// definitions are not in code tree
 				;
 label_part		: // empty
