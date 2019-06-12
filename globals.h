@@ -84,7 +84,7 @@ tokenval val;
 /*************Syntax tree for parsing**********/
 /**********************************************/
 //for type checking
-typedef enum {StmtK,ExpK,FunctK,ProcK,Defination} NodeKind;
+typedef enum {StmtK,ExpK,FunctK,ProcK,Defination,ProgramK} NodeKind;
 typedef enum {AssignK,ProcK,CompoundK,IfK,RepeatK,WhileK,ForK,CaseK,GotoK} StmtKind;
 //TYPE means custom type
 typedef enum {VOID,TYPE, INT,REAL,CHAR,BOOLEAN} ExpType;

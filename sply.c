@@ -33,11 +33,7 @@
 
 %%
 
-program			: program_head routine DOT			{ child[0]=$1;
-													  child[1]=$2;
-													  savedTree = connect(2,child);
-													  savedTree->nodeKind=Structure;
-													  strcpy(savedTree->SyntaxString,"program"); 
+program			: program_head routine DOT			{  
 													}
 				;
 program_head	: PROGRAM ID						{strcpy(savedName,TokenString);} 
@@ -86,7 +82,7 @@ label_part		: // empty
 const_part		: CONST const_expr_list				{ $$ = NULL; }
 				| // empty
 				;
-const_expr_list	: const_expr_list ID EQ const_value SEMI
+const_expr_list	: const_expr_list ID EQ const_value SEMI 
 													{ instConst($2, $4); }
 				| ID EQ const_value SEMI			{ instConst($1, $3); }
 				;
