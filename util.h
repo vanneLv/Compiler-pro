@@ -7,7 +7,12 @@
 
 void printToken(TokenType,const char *);
 
-
+TreeNode * newStmtNode(StmtKind kind);
+TreeNode * newExpNode(ExpKind kind);
+TreeNode * newFunctNode(void);
+TreeNode * newProcNode(void);
+TreeNode * newDefNode(DefKind kind);
+TreeNode * newProgNode(void)
 
 /*Function new*/
 #endif

@@ -93,3 +93,103 @@ TreeNode *conect(int n,TreeNode *child[]){
 	return parent;
 }
 
+
+TreeNode * newStmtNode(StmtKind kind)
+{
+	TreeNode *t = (TreeNode*)talloc(sizeof(TreeNode));
+	int i;
+	if(t == NULL)
+		fprintf(listing, "Out of memory error at line %d\n", lineno);
+	else{
+		for(i = 0; i < MAXCHILDREN; i++)
+			t->child[i] = NULL;
+		t->sibling = NULL;
+		t->nodeKind = StmtK;
+		t->kind.stmt = kind;
+		t->lineno = lineno;
+	}
+	return t;
+}
+
+TreeNode * newExpNode(ExpType kind)
+{
+	TreeNode *t = (TreeNode*)talloc(sizeof(TreeNode));
+	int i;
+	if(t == NULL)
+		fprintf(listing, "Out of memory error at line %d\n", lineno);
+	else{
+		for(i = 0; i < MAXCHILDREN; i++)
+			t->child[i] = NULL;
+		t->sibling = NULL;
+		t->nodeKind = ExpK;
+		t->kind.exp = kind;
+		t->lineno = lineno;
+	}
+	return t;
+}
+
+TreeNode * newFunctNode(void)
+{
+	TreeNode *t = (TreeNode*)talloc(sizeof(TreeNode));
+	int i;
+	if(t == NULL)
+		fprintf(listing, "Out of memory error at line %d\n", lineno);
+	else{
+		for(i = 0; i < MAXCHILDREN; i++)
+			t->child[i] = NULL;
+		t->sibling = NULL;
+		t->nodeKind = FunctK;
+		t->lineno = lineno;
+	}
+	return t;
+}
+
+TreeNode * newProcNode(void)
+{
+	TreeNode *t = (TreeNode*)talloc(sizeof(TreeNode));
+	int i;
+	if(t == NULL)
+		fprintf(listing, "Out of memory error at line %d\n", lineno);
+	else{
+		for(i = 0; i < MAXCHILDREN; i++)
+			t->child[i] = NULL;
+		t->sibling = NULL;
+		t->nodeKind = ProcK;
+		t->lineno = lineno;
+	}
+	return t;
+}
+
+TreeNode * newDefNode(DefType kind)
+{
+	TreeNode *t = (TreeNode*)talloc(sizeof(TreeNode));
+	int i;
+	if(t == NULL)
+		fprintf(listing, "Out of memory error at line %d\n", lineno);
+	else{
+		for(i = 0; i < MAXCHILDREN; i++)
+			t->child[i] = NULL;
+		t->sibling = NULL;
+		t->nodeKind = DefK;
+		t->kind.def = kind;
+		t->lineno = lineno;
+	}
+	return t;
+}
+
+TreeNode * newProgNode(void)
+{
+	TreeNode *t = (TreeNode*)talloc(sizeof(TreeNode));
+	int i;
+	if(t == NULL)
+		fprintf(listing, "Out of memory error at line %d\n", lineno);
+	else{
+		for(i = 0; i < MAXCHILDREN; i++)
+			t->child[i] = NULL;
+		t->sibling = NULL;
+		t->nodeKind = ProgramK;
+		t->lineno = lineno;
+	}
+	return t;
+}
+
