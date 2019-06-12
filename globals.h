@@ -99,7 +99,7 @@ typedef struct treeNode{
 	NodeKind nodeKind;
 	union{
 		StmtKind stmt;
-		ExpType type;
+		ExpType exp;
 		DefType def;
 	}kind;
 	//Unterminal or terminal symbol
